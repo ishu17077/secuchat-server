@@ -1,3 +1,6 @@
 /node_modules
 *.env
 /e2eencryptedchatapp-firebase-adminsdk-dm8po-b13da396cc.json
+.vercel
+.env*.local
+/package-lock.json

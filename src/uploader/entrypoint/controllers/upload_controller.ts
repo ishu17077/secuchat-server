@@ -1,16 +1,23 @@
 import type TokenValidator from "../../helpers/token_validator.js";
 import type { Request, Response } from "express";
+import type ICloudStorage from "../../services/icloud_storage.js";
+import type File from "../../models/file.js";
 export default class UploadController {
-    private readonly tokenValidator: TokenValidator
+    private readonly cloudStorage: ICloudStorage
 
-    constructor(tokenValidator: TokenValidator) {
-        this.tokenValidator = tokenValidator
+    constructor(cloudStorage: ICloudStorage) {
+        this.cloudStorage = cloudStorage
+
     }
 
     public async upload(req: Request, res: Response) {
-        try {
-            const { data, file_name, from, to, file_type, auth_token } = req.body
 
+        const { data, file_name, from, to, file_type, auth_token } = req.body
+        const file: File = req.body as File
+        const downloadUrl: string | null = await this.cloudStorage.upload(file).catch((err) => null)
+        if (downloadUrl) {
+            return res.status(200).json({ "url": downloadUrl })
         }
+        return res.status(500).json({ "error": "Cannot upload the file" })
     }
 }
