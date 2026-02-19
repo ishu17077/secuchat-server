@@ -13,9 +13,8 @@ export default class TokenValidator {
         }
         const uid: string | null = await this.tokenService.validate(authHeader).catch((err) => null)
         if (uid && req.body["from"] === uid) {
-            next()
-            return
+            return next()
         }
-        return res.status(403).json({ "error": "Unautorized" })
+        return res.status(403).json({ "error": "Unauthorized" })
     }
 }

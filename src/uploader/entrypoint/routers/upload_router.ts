@@ -12,8 +12,8 @@ export default class UploadRouter {
 
     public static configure(tokenValidator: TokenValidator, cloudStorage: ICloudStorage): express.Router {
         const router = express.Router()
-        let controller = UploadRouter.composeController(cloudStorage)
-        router.post("/upload", uploadValidation(), validate, tokenValidator.validate,controller.upload)
+        let controller = UploadRouter.composeController(cloudStorage)        
+        router.post("/upload", uploadValidation(), validate, (req: express.Request, res: express.Response, next: express.NextFunction) => tokenValidator.validate(req, res, next), (req: express.Request, res: express.Response) => controller.upload(req, res))
         return router
     }
 

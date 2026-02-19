@@ -6,5 +6,4 @@ export default interface File {
     from: string,
     to: string,
     file_type: FileType,
-    auth_token: string,
 }

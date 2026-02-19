@@ -1,4 +1,4 @@
-import * as admin from "firebase-admin"
+import admin from "firebase-admin"
 import type ITokenService from "../../services/itoken_service.js";
 import type ServiceAccount from "../models/service_account.js";
 
@@ -13,7 +13,7 @@ export default class FirebaseTokenService implements ITokenService {
         try {
             this.firebaseApp = admin.initializeApp({ credential: admin.credential.cert(adminConfig) })
         } catch (err) {
-            if (!admin.apps.length) {
+            if (!admin.apps) {
                 this.firebaseApp = admin.initializeApp({
                     credential: admin.credential.cert(adminConfig)
                 })
@@ -34,4 +34,3 @@ export default class FirebaseTokenService implements ITokenService {
     }
 
 }
-
