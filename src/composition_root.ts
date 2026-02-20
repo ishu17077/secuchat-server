@@ -1,4 +1,7 @@
-import type ServiceAccount from "./uploader/data/models/service_account.js"
+import type ServiceAccount from "./models/service_account.js"
+import FirebaseNotificationService from "./notification/data/services/firebase_notification_service.js"
+import FirebaseNotifications from "./notification/helpers/firebase_notifications.js"
+import type INotificationService from "./notification/services/inotification_service.js"
 import FirebaseTokenService from "./uploader/data/services/firebase_token_service.js"
 import VercelBlobStorage from "./uploader/data/services/vercel_blob_storage.js"
 import UploadRouter from "./uploader/entrypoint/routers/upload_router.js"
@@ -27,5 +30,11 @@ export default class CompositionRoot {
     public static uploadRouter(): Router {
         const tokenValidator = new TokenValidator(this.tokenService)
         return UploadRouter.configure(tokenValidator, this.cloudStorage)
+    }
+
+    public static startNotificationService(): void {
+        const notificationService: INotificationService = new FirebaseNotificationService()
+        const firebaseNotification = new FirebaseNotifications(notificationService)
+        firebaseNotification.start()
     }
 }

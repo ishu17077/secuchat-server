@@ -1,6 +1,6 @@
-import type ServiceAccount from "../data/models/service_account.js"
+import type ServiceAccount from "../../models/service_account.js"
 
 export default interface ITokenService {
-    configure(serviceAccount: ServiceAccount): Promise<void>
+    configure(serviceAccount: ServiceAccount): void
     validate(token: string): Promise<string>
 }

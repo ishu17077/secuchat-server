@@ -13,10 +13,11 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 CompositionRoot.configure()
 app.use("/api", CompositionRoot.uploadRouter())
-
+CompositionRoot.startNotificationService()
 app.listen(PORT, (err: any) => {
     if (err) {
         return console.log("Error starting the server")
     }
     console.log(`Listening to port: ${PORT}`)
 })
+
