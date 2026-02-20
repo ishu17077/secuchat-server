@@ -15,14 +15,9 @@ export default class UploadController {
         const file: File = req.body as File;
         let errs = "";
 
-        const downloadUrl: string | null = await this.cloudStorage.upload(file).catch((err) => {
-            errs = err;
-            return null;
+        return await this.cloudStorage.upload(req, res).catch((err) => {
+            return { "error": err }
         });
 
-        if (downloadUrl) {
-            return res.status(200).json({ "url": downloadUrl });
-        }
-        return res.status(500).json({ "error": errs });
     }
 }
