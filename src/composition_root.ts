@@ -27,6 +27,7 @@ export default class CompositionRoot {
             project_id: process.env.FIREBASE_PROJECT_ID ?? '',
         }
         this.firebaseAdminService.configure(serviceAccount)
+        this.tokenService = new FirebaseTokenService(this.firebaseAdminService.firebaseApp!)
         this.cloudStorage = new VercelBlobStorage()
     }
 
