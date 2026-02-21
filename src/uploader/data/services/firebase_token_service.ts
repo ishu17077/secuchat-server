@@ -2,7 +2,11 @@ import admin from "firebase-admin"
 import type ITokenService from "../../services/itoken_service.js";
 import FirebaseAdminService from "../../../services/firebase_admin_service.js";
 
-export default class FirebaseTokenService extends FirebaseAdminService implements ITokenService {
+export default class FirebaseTokenService implements ITokenService {
+    private firebaseApp: admin.app.App
+    constructor(firebaseApp: admin.app.App) {
+        this.firebaseApp = firebaseApp
+    }
     async validate(token: string): Promise<string> {
         if (!this.firebaseApp) {
             return Promise.reject("Configure function not called in Token Validator")

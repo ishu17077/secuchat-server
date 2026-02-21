@@ -4,13 +4,12 @@ import type INotificationService from "../services/inotification_service.js";
 import type Message from "../data/models/message.js";
 import type Notification from "../models/notification.js";
 
-export default class FirebaseNotifications extends FirebaseAdminService {
-    private firestore: admin.firestore.Firestore = this.firebaseApp!.firestore()
+export default class FirebaseNotifications {
+    private firestore: admin.firestore.Firestore
     private readonly notificationService: INotificationService
-    constructor(notificationService: INotificationService) {
-        super()
+    constructor(notificationService: INotificationService, firestore: admin.firestore.Firestore) {
         this.notificationService = notificationService
-        return this
+        this.firestore = firestore
     }
 
     public start(): void {

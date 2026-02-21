@@ -12,7 +12,7 @@ export default class FirebaseAdminService {
         return this
     }
 
-    protected firebaseApp: admin.app.App | null = null
+    public firebaseApp: admin.app.App | null = null
 
     configure(serviceAccount: ServiceAccount) {
         if (this.firebaseApp != null) {
