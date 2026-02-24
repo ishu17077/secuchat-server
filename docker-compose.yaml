@@ -1,0 +1,17 @@
+version: "3"
+services:
+  secuchat-uploader-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    image: secuchat-uploader-service
+    container_name: secuchat-uploader-service
+    ports:
+      - 3000:3000
+    env_file: ./.env
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: "0.5"

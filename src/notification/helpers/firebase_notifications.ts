@@ -23,12 +23,9 @@ export default class FirebaseNotifications {
                         to: message.to,
                         time: message.time
                     }
-                    try {
-                        await this.notificationService.send(notification)
-                        console.log(`[${new Date().toISOString()}] Notification sent successfully: from=${message.from} to=${message.to}`)
-                    } catch (err) {
-                        console.error(`[${new Date().toISOString()}] Error sending notification:`, err)
-                    }
+
+                    await this.notificationService.send(notification)
+
                 }
             })
         }, (err) => {

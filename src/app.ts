@@ -13,7 +13,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 CompositionRoot.configure()
 
-// Health check endpoint
 app.get("/", (_req, res) => {
     res.status(200).json({ status: "ok", service: "secuchat-uploader-service" })
 })
