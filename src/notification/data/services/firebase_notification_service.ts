@@ -21,7 +21,7 @@ export default class FirebaseNotificationService implements INotificationService
             topic: notification.to,
 
         }
-        this.firebaseApp?.messaging().send(message).then((response: string) => {
+        this.firebaseApp?.messaging().send(message).then((response: string) => {        
             console.log("Successfully sent a message: ", response)
         }).catch(err => {
             console.log("Error sending a message ", err)
