@@ -10,7 +10,7 @@ export default class FirebaseNotificationService implements INotificationService
         this.firebaseApp = firebaseApp
     }
     
-    send(notification: Notification): void {
+    async send(notification: Notification): Promise<void> {
         const message: Message = {
             // notification:{
             // },
@@ -21,11 +21,13 @@ export default class FirebaseNotificationService implements INotificationService
             topic: notification.to,
 
         }
-        this.firebaseApp?.messaging().send(message).then((response: string) => {        
-            console.log("Successfully sent a message: ", response)
-        }).catch(err => {
-            console.log("Error sending a message ", err)
-        })
+        try {
+            const response = await this.firebaseApp?.messaging().send(message)
+            console.log(`[${new Date().toISOString()}] Successfully sent a message: ${response}`)
+        } catch (err) {
+            console.error(`[${new Date().toISOString()}] Error sending a message: `, err)
+            throw err
+        }
     }
 
 }

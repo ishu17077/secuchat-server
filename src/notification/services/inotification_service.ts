@@ -1,5 +1,5 @@
 import type Notification from "../models/notification.js";
 
 export default interface INotificationService {
-    send(notification: Notification): void
+    send(notification: Notification): Promise<void>
 }

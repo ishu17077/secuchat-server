@@ -1,9 +1,11 @@
 {
     "version": 2,
-    "rewrites": [
-        {
-            "source": "/(.*)",
-            "destination": "/"
-        }
-    ]
+    "env": {
+        "BLOB_READ_WRITE_TOKEN": "@blob_read_write_token",
+        "FIREBASE_CLIENT_EMAIL": "@firebase_client_email",
+        "FIREBASE_CLIENT_ID": "@firebase_client_id",
+        "FIREBASE_PRIVATE_KEY": "@firebase_private_key",
+        "FIREBASE_PRIVATE_KEY_ID": "@firebase_private_key_id",
+        "FIREBASE_PROJECT_ID": "@firebase_project_id"
+    }
 }

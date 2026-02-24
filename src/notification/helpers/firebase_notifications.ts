@@ -13,8 +13,9 @@ export default class FirebaseNotifications {
     }
 
     public start(): void {
+        console.log(`[${new Date().toISOString()}] Starting Firestore message listener`)
         this.firestore.collection("messages").onSnapshot((snapshot) => {
-            snapshot.docChanges().forEach((docChange) => {
+            snapshot.docChanges().forEach(async (docChange) => {
                 if (docChange.type == "added") {
                     const message: Message = docChange.doc.data() as Message
                     const notification: Notification = {
@@ -22,9 +23,16 @@ export default class FirebaseNotifications {
                         to: message.to,
                         time: message.time
                     }
-                    this.notificationService.send(notification)
+                    try {
+                        await this.notificationService.send(notification)
+                        console.log(`[${new Date().toISOString()}] Notification sent successfully: from=${message.from} to=${message.to}`)
+                    } catch (err) {
+                        console.error(`[${new Date().toISOString()}] Error sending notification:`, err)
+                    }
                 }
             })
+        }, (err) => {
+            console.error(`[${new Date().toISOString()}] Firestore listener error:`, err)
         })
     }
 

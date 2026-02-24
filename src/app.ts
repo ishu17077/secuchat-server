@@ -12,12 +12,24 @@ app.use(morgan("combined"))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 CompositionRoot.configure()
-app.use("/api", CompositionRoot.uploadRouter())
 
+// Health check endpoint
+app.get("/", (_req, res) => {
+    res.status(200).json({ status: "ok", service: "secuchat-uploader-service" })
+})
+
+app.get("/health", (_req, res) => {
+    res.status(200).json({ status: "healthy" })
+})
+
+app.use("/api", CompositionRoot.uploadRouter())
+CompositionRoot.startNotificationService()
 app.listen(PORT, (err: any) => {
     if (err) {
-        return console.log("Error starting the server")
+        return console.error("Error starting the server:", err)
     }
-    console.log(`Listening to port: ${PORT}`)
+    console.log(`[${new Date().toISOString()}] Listening to port: ${PORT}`)
 })
-CompositionRoot.startNotificationService()
+
+
+console.log(`[${new Date().toISOString()}] Notification service started`)
