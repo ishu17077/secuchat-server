@@ -30,9 +30,10 @@ export default class FirebaseAdminService {
 
         try {
             this._firebaseApp = admin.initializeApp({ credential: admin.credential.cert(adminConfig) })
+            console.log("Firebase Admin SDK initialized successfully")
         } catch (err) {
-            console.log(err)
-
+            console.error("Firebase initialization error:", err)
+            throw err
         }
     }
 }

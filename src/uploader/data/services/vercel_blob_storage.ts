@@ -3,6 +3,8 @@ import type ICloudStorage from "../../services/icloud_storage.js";
 import type File from "../../models/file.js";
 import { put } from "@vercel/blob";
 
+const crypto = globalThis.crypto;
+
 export default class VercelBlobStorage implements ICloudStorage {
     public async upload(file: File): Promise<string> {
         const randomUID = crypto.randomUUID();
