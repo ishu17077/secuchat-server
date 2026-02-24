@@ -1,5 +1,4 @@
 // import { handleUpload, type HandleUploadBody } from "@vercel/blob/client"
-import express from "express"
 import type ICloudStorage from "../../services/icloud_storage.js";
 import type File from "../../models/file.js";
 import { put } from "@vercel/blob";
@@ -10,12 +9,12 @@ export default class VercelBlobStorage implements ICloudStorage {
         try {
             const uploadFile = await put(
                 randomUID,
-                JSON.stringify(file), {
-                access: "public",
-            }
-
-            )
-            return Promise.resolve(uploadFile.url)
+                JSON.stringify(file),
+                {
+                    access: "public",
+                }
+            );
+            return Promise.resolve(uploadFile.url);
         } catch (e) {
             return Promise.reject("Cannot upload the file")
         }
