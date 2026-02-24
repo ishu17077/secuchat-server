@@ -12,10 +12,14 @@ export default class FirebaseAdminService {
         return this
     }
 
-    public firebaseApp: admin.app.App | null = null
+    private _firebaseApp: admin.app.App | null = null
+    public get firebaseApp(): admin.app.App | null {
+        return this._firebaseApp
+    }
+
 
     configure(serviceAccount: ServiceAccount) {
-        if (this.firebaseApp != null) {
+        if (this._firebaseApp != null) {
             return
         }
         const adminConfig: admin.ServiceAccount = {
@@ -25,14 +29,10 @@ export default class FirebaseAdminService {
         }
 
         try {
-            this.firebaseApp = admin.initializeApp({ credential: admin.credential.cert(adminConfig) })
-        } catch (e) {
-            console.log(e)
-            if (!admin.apps) {
-                this.firebaseApp = admin.initializeApp({
-                    credential: admin.credential.cert(adminConfig)
-                })
-            }
+            this._firebaseApp = admin.initializeApp({ credential: admin.credential.cert(adminConfig) })
+        } catch (err) {
+            console.log(err)
+
         }
     }
 }
