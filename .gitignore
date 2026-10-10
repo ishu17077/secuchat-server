@@ -5,3 +5,4 @@
 .env*.local
 /package-lock.json
 /dist
+!.env.example
