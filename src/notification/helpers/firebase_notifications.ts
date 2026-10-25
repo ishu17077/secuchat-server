@@ -1,13 +1,13 @@
-import admin from "firebase-admin"
+import {Firestore} from "firebase-admin/firestore"
 import FirebaseAdminService from "../../services/firebase_admin_service.js";
 import type INotificationService from "../services/inotification_service.js";
 import type Message from "../data/models/message.js";
 import type Notification from "../models/notification.js";
 
 export default class FirebaseNotifications {
-    private firestore: admin.firestore.Firestore
+    private firestore: Firestore
     private readonly notificationService: INotificationService
-    constructor(notificationService: INotificationService, firestore: admin.firestore.Firestore) {
+    constructor(notificationService: INotificationService, firestore: Firestore) {
         this.notificationService = notificationService
         this.firestore = firestore
     }
