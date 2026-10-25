@@ -1,3 +1,4 @@
+import {type App} from "firebase-admin/app"
 import admin from "firebase-admin"
 import type ServiceAccount from "../models/service_account.js"
 
@@ -12,8 +13,8 @@ export default class FirebaseAdminService {
         return this
     }
 
-    private _firebaseApp: admin.app.App | null = null
-    public get firebaseApp(): admin.app.App | null {
+    private _firebaseApp: App | null = null
+    public get firebaseApp(): App | null {
         return this._firebaseApp
     }
 
@@ -29,7 +30,7 @@ export default class FirebaseAdminService {
         }
 
         try {
-            this._firebaseApp = admin.initializeApp({ credential: admin.credential.cert(adminConfig) })
+            this._firebaseApp = admin.initializeApp({ credential: admin.cert(adminConfig) })
             console.log("Firebase Admin SDK initialized successfully")
         } catch (err) {
             console.error("Firebase initialization error:", err)

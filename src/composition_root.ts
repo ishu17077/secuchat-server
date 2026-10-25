@@ -38,7 +38,7 @@ export default class CompositionRoot {
 
     public static startNotificationService(): void {
         const notificationService: INotificationService = new FirebaseNotificationService(this.firebaseAdminService.firebaseApp!)
-        const firebaseNotification = new FirebaseNotifications(notificationService, this.firebaseAdminService.firebaseApp?.firestore()!)
+        const firebaseNotification = new FirebaseNotifications(notificationService, this.firebaseAdminService.firebaseApp!)
         firebaseNotification.start()
     }
 }
